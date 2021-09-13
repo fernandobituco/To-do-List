@@ -1,6 +1,6 @@
 namespace ToDoList.InputModels
 {
-    public class ToDoItemInputModel
+    public class ToDoItemCreateInputModel
     {
         public string Description { get; set; }
     }

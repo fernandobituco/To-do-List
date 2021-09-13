@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ToDoList.Entities;
 using ToDoList.InputModels;
 using ToDoList.Services;
+using ToDoList.ViewModels;
 
 namespace ToDoList.Controllers
 {
@@ -13,20 +15,41 @@ namespace ToDoList.Controllers
     [Route("/todos")]
     public class ToDoController : ControllerBase
     {
-        //private readonly ILogger<ToDoController> _logger;
         private readonly IToDoService _service;
 
-        //public ToDoController(ILogger<ToDoController> logger, IToDoService service)
         public ToDoController(IToDoService service)
         {
-        //    _logger = logger;
             _service = service;
         }
 
         [HttpPost]
-        public void CreateToDoItem([FromBody] ToDoItemInputModel inputModel)
+        public void CreateToDoItem([FromBody] ToDoItemCreateInputModel inputModel)
         {
             _service.AddToDoItem(inputModel);
         }
+
+        [HttpGet]
+        public List<ToDoItemViewModel> ShowToDoList()
+        {
+            List<ToDoItemViewModel> listViewModel = new List<ToDoItemViewModel>();
+            foreach (var toDoItem in _service.ShowToDoList())
+            {
+                listViewModel.Add(new ToDoItemViewModel(
+                    id: toDoItem.Id,
+                    description: toDoItem.Description,
+                    done: toDoItem.Done
+                ));
+            }
+
+            return listViewModel;
+        }
+
+        [HttpPut("{id:guid}")]
+
+        public void AtualizaToDo([FromRoute] Guid id, [FromBody] TodoItemUpdateInputModel inputModel)
+        {
+            _service.AtualizarToDo(id, inputModel);
+        }
+
     }
 }

@@ -1,14 +1,14 @@
 using System;
 
-namespace ToDoList.Entities
+namespace ToDoList.ViewModels
 {
-    public class ToDoItem
+    public class ToDoItemViewModel
     {        
-        public Guid Id { get; }
+        public Guid Id {get; set;}
         public string Description { get; set; }
         public bool Done { get; set; }
 
-        public ToDoItem(Guid id, string description, bool done)
+        public ToDoItemViewModel(Guid id, string description, bool done)
         {
             this.Id = id;
             this.Description = description;

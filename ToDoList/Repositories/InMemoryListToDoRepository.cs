@@ -12,5 +12,9 @@ namespace ToDoList.Repositories
             todoItems.Add(toDoItem);
         }
         
+        public List<ToDoItem> retornaToDoList()
+        {
+            return todoItems;
+        }
     }
 }
